@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planificación de Unidad · Matemática 9.° EBI · Lucas Barboza</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1B3A5C;
+      --teal: #2E7D8A;
+      --teal-light: #E1F5EE;
+      --teal-mid: #9FE1CB;
+      --gold: #C0922A;
+      --gold-light: #FAEEDA;
+      --bg: #F5F6F8;
+      --surface: #FFFFFF;
+      --text: #1A1A2E;
+      --muted: #5A6A7A;
+      --border: rgba(0,0,0,0.09);
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 22px;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .page { max-width: 820px; margin: 0 auto; }
+
+    /* ── Hero ── */
+    .hero {
+      background: var(--navy);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem 2.2rem 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(46,125,138,0.2);
+      top: -100px; right: -70px;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(192,146,42,0.13);
+      bottom: -50px; left: 80px;
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(192,146,42,0.28);
+      color: #FAC775;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+    .hero-sub {
+      color: #9FE1CB;
+      font-size: 14px;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      position: relative;
+    }
+    .pill {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 12px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .pill strong { color: #9FE1CB; font-weight: 600; }
+
+    /* ── Nav ── */
+    .nav {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      .nav { grid-template-columns: repeat(3, 1fr); }
+      .hero h1 { font-size: 19px; }
+    }
+    .nav-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 0.75rem 0.4rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+      font-family: inherit;
+    }
+    .nav-btn:hover {
+      background: #f0f9fa;
+      border-color: var(--teal);
+    }
+    .nav-btn.active {
+      border: 2px solid var(--teal);
+      background: var(--teal-light);
+    }
+    .nav-icon { font-size: 18px; margin-bottom: 5px; display: block; }
+    .nav-label {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+      display: block;
+      line-height: 1.3;
+    }
+    .nav-btn.active .nav-label { color: #0F6E56; font-weight: 600; }
+
+    /* ── Sections ── */
+    .section { display: none; animation: fadeIn 0.22s ease; }
+    .section.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2.5px solid var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .card-accent { border-left: 4px solid var(--teal); }
+    .card-gold   { border-left: 4px solid var(--gold); }
+    .card-navy   { border-left: 4px solid var(--navy); }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      gap: 10px;
+    }
+    .card-header-left { display: flex; align-items: center; gap: 10px; flex: 1; }
+    .card-title    { font-size: 14px; font-weight: 600; color: var(--text); }
+    .card-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .chevron { font-size: 11px; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+    .chevron.open { transform: rotate(180deg); }
+    .card-body { margin-top: 0.85rem; display: none; }
+    .card-body.open { display: block; }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 11px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge-teal  { background: var(--teal-light); color: #0F6E56; }
+    .badge-gold  { background: var(--gold-light);  color: #854F0B; }
+    .badge-navy  { background: #E6F1FB;            color: #185FA5; }
+    .badge-coral { background: #FAECE7;            color: #993C1D; }
+
+    /* ── Timeline ── */
+    .tl-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0;
+    }
+    .tl-week {
+      min-width: 80px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      padding-top: 4px;
+      text-align: right;
+    }
+    .tl-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tl-dot {
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .tl-dot.gold  { background: var(--gold); }
+    .tl-dot.navy  { background: var(--navy); }
+    .tl-connector {
+      width: 2px;
+      flex: 1;
+      background: #D0E8EB;
+      min-height: 18px;
+    }
+    .tl-content {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.55rem 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+    .tl-name { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .tl-desc { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+
+    /* ── Objetivos ── */
+    .obj-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .obj-head {
+      padding: 0.8rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      user-select: none;
+      transition: background 0.12s;
+    }
+    .obj-head:hover { background: #F8FEFF; }
+    .obj-num {
+      min-width: 26px; height: 26px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .obj-text {
+      font-size: 13px; font-weight: 500;
+      color: var(--text); line-height: 1.5; flex: 1;
+    }
+    .obj-indicators {
+      display: none;
+      padding: 0 1rem 0.85rem 3rem;
+      border-top: 1px solid var(--border);
+      background: #F8FEFF;
+    }
+    .obj-indicators.open { display: block; }
+    .obj-indicators ul { list-style: none; padding: 0; margin-top: 0.6rem; }
+    .obj-indicators li {
+      font-size: 12px; color: var(--muted);
+      padding: 4px 0 4px 15px;
+      position: relative; line-height: 1.5;
+    }
+    .obj-indicators li::before {
+      content: '';
+      position: absolute; left: 0; top: 11px;
+      width: 6px; height: 6px;
+      border-radius: 50%; background: var(--teal);
+    }
+
+    /* ── Nice list ── */
+    ul.nice-list { list-style: none; padding: 0; }
+    ul.nice-list li {
+      font-size: 13px; color: var(--muted);
+      padding: 6px 0 6px 16px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    ul.nice-list li:last-child { border-bottom: none; }
+    ul.nice-list li::before {
+      content: '';
+      position: absolute; left: 0; top: 13px;
+      width: 6px; height: 6px;
+      border-radius: 50%; background: var(--teal);
+    }
+
+    /* ── Eval ── */
+    .eval-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+    .eval-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .eval-icon   { font-size: 26px; margin-bottom: 8px; }
+    .eval-type   { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .eval-moment { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+    .eval-desc   { font-size: 12px; color: var(--muted); line-height: 1.55; text-align: left; }
+
+    /* ── Recursos ── */
+    .met-group-title {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      margin-bottom: 6px;
+    }
+
+    /* ── Footer ── */
+    .footer-bar {
+      background: var(--navy);
+      border-radius: var(--radius-xl);
+      padding: 1.1rem 1.8rem;
+      margin-top: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-name { color: #fff; font-size: 14px; font-weight: 600; }
+    .footer-meta { color: #9FE1CB; font-size: 12px; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Matemática · EBI</div>
+    <h1>Polinomios, Ecuaciones de 2.° grado,<br>Funciones Cuadráticas y Sistemas</h1>
+    <p class="hero-sub">Unidad variable · 9.° año · Educación Básica Integrada</p>
+    <div class="hero-pills">
+      <div class="pill"><strong>Docente:</strong> Lucas Barboza</div>
+      <div class="pill"><strong>Duración:</strong> 14 semanas</div>
+      <div class="pill"><strong>Año:</strong> 2026</div>
+      <div class="pill"><strong>Área:</strong> Matemática</div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showSection('contenidos', this)">
+      <span class="nav-icon">📚</span>
+      <span class="nav-label">Contenidos</span>
+    </button>
+    <button class="nav-btn" onclick="showSection('previos', this)">
+      <span class="nav-icon">🔑</span>
+      <span class="nav-label">Saberes previos</span>
+    </button>
+    <button class="nav-btn" onclick="showSection('objetivos', this)">
+      <span class="nav-icon">🎯</span>
+      <span class="nav-label">Objetivos</span>
+    </button>
+    <button class="nav-btn" onclick="showSection('metodologia', this)">
+      <span class="nav-icon">🛠</span>
+      <span class="nav-label">Metodología</span>
+    </button>
+    <button class="nav-btn" onclick="showSection('temporalizacion', this)">
+      <span class="nav-icon">🗓</span>
+      <span class="nav-label">Temporalización</span>
+    </button>
+    <button class="nav-btn" onclick="showSection('evaluacion', this)">
+      <span class="nav-icon">✅</span>
+      <span class="nav-label">Evaluación</span>
+    </button>
+  </nav>
+
+  <!-- ── CONTENIDOS ── -->
+  <div id="sec-contenidos" class="section active">
+    <div class="section-title">📚 Contenidos de la unidad</div>
+
+    <div class="card card-gold">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="badge badge-gold">Semana 1</span>
+          <div>
+            <div class="card-title">Repaso: lenguaje algebraico y ecuaciones de 1.° grado</div>
+            <div class="card-subtitle">Base para el trabajo con polinomios y ecuaciones cuadráticas</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="nice-list">
+          <li>Revisión de expresiones algebraicas: términos, coeficientes, grado.</li>
+          <li>Operaciones con expresiones algebraicas: suma, resta, multiplicación.</li>
+          <li>Repaso de ecuaciones de primer grado con una incógnita.</li>
+          <li>Verificación de soluciones e interpretación gráfica de la recta asociada.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-accent">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="badge badge-teal">Semanas 2–3</span>
+          <div>
+            <div class="card-title">Polinomios</div>
+            <div class="card-subtitle">Propiedad distributiva, productos notables, factorización</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="nice-list">
+          <li>Propiedad distributiva con énfasis en la factorización.</li>
+          <li>Productos notables: cuadrado de binomio, suma por diferencia.</li>
+          <li>Estrategias de factorización y simplificación de expresiones.</li>
+          <li>Modelización de situaciones mediante polinomios.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-accent">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="badge badge-teal">Semanas 4–6</span>
+          <div>
+            <div class="card-title">Ecuaciones de 2.° grado</div>
+            <div class="card-subtitle">Incompletas y completas · fórmula cuadrática</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="nice-list">
+          <li>Resolución de ecuaciones incompletas (ax² = 0, ax² + c = 0, ax² + bx = 0).</li>
+          <li>Resolución de ecuaciones completas por factorización y completar cuadrados.</li>
+          <li>Deducción y uso de la fórmula cuadrática: x = (−b ± √(b²−4ac)) / 2a.</li>
+          <li>Discriminante y número de raíces.</li>
+          <li>Simplificación de radicales y racionalización de denominadores.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-accent">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="badge badge-teal">Semanas 7–9</span>
+          <div>
+            <div class="card-title">Funciones cuadráticas</div>
+            <div class="card-subtitle">Bosquejo gráfico · análisis de parámetros</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="nice-list">
+          <li>Representación gráfica de f(x) = ax², ax²+c, ax²+bx, ax²+bx+c (a ≠ 0).</li>
+          <li>Raíces, extremo, concavidad, intervalos de crecimiento y esquema de signo.</li>
+          <li>Influencia de los coeficientes a, b, c en la forma y posición de la parábola.</li>
+          <li>Uso de herramientas digitales (GeoGebra) para explorar traslaciones y parámetros.</li>
+          <li>Modelización contextualizada con funciones de segundo grado.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-navy">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="badge badge-navy">Semanas 10–11</span>
+          <div>
+            <div class="card-title">Inecuaciones de 2.° grado</div>
+            <div class="card-subtitle">Resolución analítica y gráfica</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="nice-list">
+          <li>Resolución analítica de inecuaciones cuadráticas.</li>
+          <li>Expresión del conjunto solución mediante intervalos o notación de conjuntos.</li>
+          <li>Representación gráfica de la función asociada e identificación de los intervalos solución.</li>
+          <li>Contraste entre resolución analítica y gráfica.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-navy">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="badge badge-navy">Semanas 12–13</span>
+          <div>
+            <div class="card-title">Sistemas de ecuaciones lineales</div>
+            <div class="card-subtitle">Ecuación de la recta · métodos gráfico y analítico</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="nice-list">
+          <li>Ecuación de primer grado con dos incógnitas y su representación como recta.</li>
+          <li>Resolución de sistemas por método gráfico.</li>
+          <li>Resolución de sistemas por métodos analíticos: sustitución y escalerización.</li>
+          <li>Clasificación de sistemas (compatible determinado, indeterminado, incompatible).</li>
+          <li>Validación de soluciones con recursos tecnológicos.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="badge badge-gold">Semana 14</span>
+          <div>
+            <div class="card-title">Evaluación integradora</div>
+            <div class="card-subtitle">Cierre y síntesis de la unidad</div>
+          </div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="nice-list">
+          <li>Resolución de situaciones problema que integran los contenidos de la unidad.</li>
+          <li>Prueba escrita y/o proyecto de modelización contextualizada.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SABERES PREVIOS ── -->
+  <div id="sec-previos" class="section">
+    <div class="section-title">🔑 Saberes previos requeridos</div>
+    <div class="card">
+      <p style="font-size: 13px; color: var(--muted); margin-bottom: 0.75rem; line-height: 1.6;">Para abordar esta unidad el estudiantado debe contar con los siguientes conocimientos:</p>
+      <ul class="nice-list">
+        <li>Operaciones básicas y sus propiedades en ℝ (suma, resta, multiplicación, división, potenciación).</li>
+        <li>Interpretación y manipulación de expresiones algebraicas; uso de letras para generalizar relaciones numéricas y operaciones.</li>
+        <li>Resolución de ecuaciones e inecuaciones de primer grado con una incógnita; verificación de soluciones.</li>
+        <li>Concepto de función: dominio, raíces, ordenada al origen y signo.</li>
+        <li>Reconocimiento de la dependencia funcional y representación de funciones polinómicas de primer grado.</li>
+      </ul>
+    </div>
+    <div class="card card-gold" style="margin-top: 0.5rem;">
+      <p style="font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px;">💡 Diagnóstico sugerido</p>
+      <p style="font-size: 12px; color: var(--muted); line-height: 1.6;">Aplicar una actividad exploratoria al inicio de la unidad para relevar los saberes previos en torno a ecuaciones de primer grado y funciones lineales antes de avanzar a los nuevos contenidos.</p>
+    </div>
+  </div>
+
+  <!-- ── OBJETIVOS ── -->
+  <div id="sec-objetivos" class="section">
+    <div class="section-title">🎯 Objetivos de aprendizaje</div>
+    <p style="font-size: 13px; color: var(--muted); margin-bottom: 1rem; line-height: 1.5;">Hacé clic en cada objetivo para ver sus indicadores de evaluación.</p>
+
+    <div class="obj-card">
+      <div class="obj-head" onclick="toggleObj(this)">
+        <div class="obj-num">1</div>
+        <div class="obj-text">Aplicar la propiedad distributiva y productos notables para transformar y simplificar expresiones polinómicas, usando la factorización como herramienta clave.</div>
+        <span class="chevron" style="font-size:12px; color:var(--muted); flex-shrink:0; margin-left:6px;">▼</span>
+      </div>
+      <div class="obj-indicators">
+        <ul>
+          <li>Expresa polinomios con notación algebraica correcta.</li>
+          <li>Aplica la propiedad distributiva y los productos notables para desarrollar o factorizar expresiones y justifica procedimientos.</li>
+          <li>Reconoce patrones y formula, valida y generaliza conjeturas sobre la factorización de polinomios.</li>
+          <li>Selecciona y aplica estrategias adecuadas para desarrollar, factorizar y simplificar polinomios.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="obj-card">
+      <div class="obj-head" onclick="toggleObj(this)">
+        <div class="obj-num">2</div>
+        <div class="obj-text">Resolver ecuaciones polinómicas de 2.° grado mediante factorización o completar cuadrados, argumentando los procedimientos empleados.</div>
+        <span class="chevron" style="font-size:12px; color:var(--muted); flex-shrink:0; margin-left:6px;">▼</span>
+      </div>
+      <div class="obj-indicators">
+        <ul>
+          <li>Plantea y resuelve ecuaciones incompletas o completas aplicando factorización o completar cuadrados.</li>
+          <li>Explica y argumenta los pasos y decisiones adoptadas.</li>
+          <li>Compara distintas estrategias y argumenta la elección del método más adecuado.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="obj-card">
+      <div class="obj-head" onclick="toggleObj(this)">
+        <div class="obj-num">3</div>
+        <div class="obj-text">Utilizar la fórmula cuadrática (deducida a partir de completar cuadrados) para verificar y contrastar soluciones.</div>
+        <span class="chevron" style="font-size:12px; color:var(--muted); flex-shrink:0; margin-left:6px;">▼</span>
+      </div>
+      <div class="obj-indicators">
+        <ul>
+          <li>Aplica la fórmula general y reconoce su relación con el método de completar cuadrados.</li>
+          <li>Discute el número de raíces a través del discriminante.</li>
+          <li>Simplifica y racionaliza expresiones con radicales.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="obj-card">
+      <div class="obj-head" onclick="toggleObj(this)">
+        <div class="obj-num">4</div>
+        <div class="obj-text">Interpretar y bosquejar funciones cuadráticas, identificando sus características principales con apoyo tecnológico.</div>
+        <span class="chevron" style="font-size:12px; color:var(--muted); flex-shrink:0; margin-left:6px;">▼</span>
+      </div>
+      <div class="obj-indicators">
+        <ul>
+          <li>Identifica raíces, ordenada al origen, extremo, concavidad e intervalos de crecimiento a partir del gráfico.</li>
+          <li>Bosqueja la gráfica representando correctamente sus elementos esenciales.</li>
+          <li>Modela situaciones contextualizadas con funciones de segundo grado.</li>
+          <li>Formula y valida conjeturas mediante bosquejos y las generaliza.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="obj-card">
+      <div class="obj-head" onclick="toggleObj(this)">
+        <div class="obj-num">5</div>
+        <div class="obj-text">Establecer relaciones entre la expresión analítica de una función cuadrática y su comportamiento gráfico.</div>
+        <span class="chevron" style="font-size:12px; color:var(--muted); flex-shrink:0; margin-left:6px;">▼</span>
+      </div>
+      <div class="obj-indicators">
+        <ul>
+          <li>Usa herramientas digitales para representar funciones y observar cambios al modificar parámetros.</li>
+          <li>Interpreta cómo los coeficientes determinan la concavidad, la posición del extremo y el comportamiento general.</li>
+          <li>Comunica procedimientos y conclusiones con claridad.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="obj-card">
+      <div class="obj-head" onclick="toggleObj(this)">
+        <div class="obj-num">6</div>
+        <div class="obj-text">Resolver inecuaciones cuadráticas mediante procedimientos analíticos y gráficos, interpretando los intervalos solución.</div>
+        <span class="chevron" style="font-size:12px; color:var(--muted); flex-shrink:0; margin-left:6px;">▼</span>
+      </div>
+      <div class="obj-indicators">
+        <ul>
+          <li>Resuelve inecuaciones aplicando procedimientos analíticos y expresa el conjunto solución correctamente.</li>
+          <li>Representa gráficamente la función asociada e identifica los intervalos solución.</li>
+          <li>Contrasta soluciones analíticas y gráficas.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="obj-card">
+      <div class="obj-head" onclick="toggleObj(this)">
+        <div class="obj-num">7</div>
+        <div class="obj-text">Interpretar ecuaciones lineales con dos incógnitas y reconocer su representación gráfica como una recta.</div>
+        <span class="chevron" style="font-size:12px; color:var(--muted); flex-shrink:0; margin-left:6px;">▼</span>
+      </div>
+      <div class="obj-indicators">
+        <ul>
+          <li>Identifica variables y relaciones en ecuaciones lineales con dos incógnitas.</li>
+          <li>Determina pares ordenados que satisfacen la ecuación y los representa gráficamente.</li>
+          <li>Reconoce y describe características básicas de la recta asociada.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="obj-card">
+      <div class="obj-head" onclick="toggleObj(this)">
+        <div class="obj-num">8</div>
+        <div class="obj-text">Resolver sistemas de ecuaciones lineales mediante método gráfico y analítico (incluyendo escalerización).</div>
+        <span class="chevron" style="font-size:12px; color:var(--muted); flex-shrink:0; margin-left:6px;">▼</span>
+      </div>
+      <div class="obj-indicators">
+        <ul>
+          <li>Formula y clasifica sistemas de ecuaciones con dos incógnitas.</li>
+          <li>Elige y aplica estrategias gráficas o analíticas, justificando la elección.</li>
+          <li>Identifica patrones en las soluciones y los utiliza para clasificar el sistema.</li>
+          <li>Usa herramientas digitales para interpretar soluciones y relacionarlas con situaciones reales.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── METODOLOGÍA ── -->
+  <div id="sec-metodologia" class="section">
+    <div class="section-title">🛠 Sugerencias metodológicas</div>
+
+    <div class="card card-accent">
+      <p class="met-group-title" style="color: #0F6E56;">Algebraica</p>
+      <ul class="nice-list">
+        <li>Profundizar en la propiedad distributiva haciendo énfasis en la factorización.</li>
+        <li>Usar productos notables y factorización como herramientas para simplificar expresiones y resolver ecuaciones.</li>
+        <li>Resolver ecuaciones de 2.° grado factorizando o completando cuadrados, y derivar la fórmula cuadrática de ese proceso.</li>
+        <li>Expresar las soluciones en forma simplificada (simplificar radicales, racionalizar denominadores).</li>
+      </ul>
+    </div>
+
+    <div class="card card-gold">
+      <p class="met-group-title" style="color: #854F0B;">Gráfica y tecnológica</p>
+      <ul class="nice-list">
+        <li>Propiciar el pasaje bidireccional entre expresión analítica y representación gráfica.</li>
+        <li>Usar GeoGebra u otras herramientas digitales para explorar traslaciones y la influencia de parámetros a, b y c en f(x) = ax²+bx+c.</li>
+        <li>Resolver inecuaciones de forma analítica y gráfica, interpretando los intervalos solución visualmente.</li>
+        <li>Utilizar recursos tecnológicos para visualizar relaciones entre ecuaciones y sus soluciones en sistemas lineales.</li>
+      </ul>
+    </div>
+
+    <div class="card card-navy">
+      <p class="met-group-title" style="color: #185FA5;">Pedagógica</p>
+      <ul class="nice-list">
+        <li>Favorecer el trabajo colaborativo en la resolución de problemas y promover la discusión de estrategias.</li>
+        <li>Incorporar el análisis del error como parte del proceso de aprendizaje.</li>
+        <li>Promover la verificación de soluciones y la argumentación de decisiones.</li>
+        <li>Modelizar situaciones reales mediante ecuaciones lineales con dos incógnitas.</li>
+        <li>Priorizar el método de escalerización con perspectiva de uso en programación.</li>
+        <li>Integrar interpretaciones algebraicas, gráficas y contextuales al resolver situaciones problema.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── TEMPORALIZACIÓN ── -->
+  <div id="sec-temporalizacion" class="section">
+    <div class="section-title">🗓 Temporalización orientativa</div>
+    <div style="padding: 0.25rem 0;">
+
+      <div class="tl-item">
+        <div class="tl-week">Semana 1</div>
+        <div class="tl-line"><div class="tl-dot gold"></div><div class="tl-connector"></div></div>
+        <div class="tl-content">
+          <div class="tl-name">Repaso: lenguaje algebraico y ecuaciones de 1.° grado</div>
+          <div class="tl-desc">Expresiones algebraicas, operaciones, ecuaciones lineales con una incógnita y su representación gráfica.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-week">Semanas 2–3</div>
+        <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-content">
+          <div class="tl-name">Polinomios</div>
+          <div class="tl-desc">Propiedad distributiva, productos notables y factorización.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-week">Semanas 4–6</div>
+        <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-content">
+          <div class="tl-name">Ecuaciones de 2.° grado</div>
+          <div class="tl-desc">Incompletas y completas: factorización, completar cuadrados, fórmula cuadrática y discriminante.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-week">Semanas 7–9</div>
+        <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-content">
+          <div class="tl-name">Funciones cuadráticas</div>
+          <div class="tl-desc">Bosquejo gráfico, análisis de parámetros y uso de TIC.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-week">Semanas 10–11</div>
+        <div class="tl-line"><div class="tl-dot navy"></div><div class="tl-connector"></div></div>
+        <div class="tl-content">
+          <div class="tl-name">Inecuaciones de 2.° grado</div>
+          <div class="tl-desc">Resolución analítica y gráfica, intervalos solución.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-week">Semanas 12–13</div>
+        <div class="tl-line"><div class="tl-dot navy"></div><div class="tl-connector"></div></div>
+        <div class="tl-content">
+          <div class="tl-name">Sistemas de ecuaciones lineales</div>
+          <div class="tl-desc">Ecuación de la recta, métodos gráfico y analítico, escalerización.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-week">Semana 14</div>
+        <div class="tl-line"><div class="tl-dot gold"></div></div>
+        <div class="tl-content">
+          <div class="tl-name">Evaluación integradora</div>
+          <div class="tl-desc">Resolución de situaciones problema que integran los contenidos de la unidad.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── EVALUACIÓN ── -->
+  <div id="sec-evaluacion" class="section">
+    <div class="section-title">✅ Estrategia de evaluación</div>
+
+    <div class="eval-grid">
+      <div class="eval-card">
+        <div class="eval-icon">🔍</div>
+        <div class="eval-type">Diagnóstica</div>
+        <div class="eval-moment">Inicio de la unidad</div>
+        <div class="eval-desc">Actividad exploratoria sobre saberes previos: ecuaciones de 1.° grado, funciones lineales y lenguaje algebraico.</div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-icon">📋</div>
+        <div class="eval-type">Formativa</div>
+        <div class="eval-moment">Durante toda la unidad</div>
+        <div class="eval-desc">Observación del proceso, situaciones problema, participación en discusiones, rúbricas de autoevaluación y coevaluación.</div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-icon">📝</div>
+        <div class="eval-type">Sumativa</div>
+        <div class="eval-moment">Al finalizar la unidad</div>
+        <div class="eval-desc">Prueba escrita integradora y/o proyecto de modelización contextualizada que evidencie los aprendizajes logrados.</div>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <p style="font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px;">📦 Recursos y materiales</p>
+      <ul class="nice-list">
+        <li>Programa de Matemática – 9.° EBI (Comisión de Programa, versión final 2026).</li>
+        <li>GeoGebra (versión web o escritorio) para representación de funciones e inecuaciones.</li>
+        <li>Calculadoras científicas.</li>
+        <li>Fichas de actividades de modelización con situaciones reales.</li>
+        <li>Rúbricas de autoevaluación y coevaluación.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <div>
+      <div class="footer-name">Prof. Lucas Barboza</div>
+      <div class="footer-meta">Matemática · 9.° año EBI · 2026</div>
+    </div>
+    <div class="footer-meta">Planificación de unidad variable · 14 semanas</div>
+  </div>
+
+</div>
+
+<script>
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('sec-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+  function toggleCard(header) {
+    const body = header.nextElementSibling;
+    const chevron = header.querySelector('.chevron');
+    body.classList.toggle('open');
+    chevron.classList.toggle('open');
+  }
+  function toggleObj(head) {
+    const ind = head.nextElementSibling;
+    const chevron = head.querySelector('.chevron');
+    ind.classList.toggle('open');
+    chevron.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
