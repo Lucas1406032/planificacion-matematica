@@ -12,8 +12,14 @@
       --teal: #2E7D8A;
       --teal-light: #E1F5EE;
       --teal-mid: #9FE1CB;
+      --teal-dark: #0F6E56;
       --gold: #C0922A;
       --gold-light: #FAEEDA;
+      --gold-mid: #EF9F27;
+      --gold-dark: #854F0B;
+      --blue-light: #E6F1FB;
+      --coral-light: #FAECE7;
+      --coral-dark: #993C1D;
       --bg: #F5F6F8;
       --surface: #FFFFFF;
       --text: #1A1A2E;
@@ -108,7 +114,7 @@
     /* ── Nav ── */
     .nav {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 8px;
       margin-bottom: 1.5rem;
     }
@@ -344,6 +350,259 @@
       margin-bottom: 6px;
     }
 
+    /* ══════════════════════════════════════════
+       ── PLANIFICACIONES (sección nueva) ──
+    ══════════════════════════════════════════ */
+
+    /* Pestañas internas */
+    .plan-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0;
+    }
+    .plan-tab {
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2.5px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+      font-family: inherit;
+    }
+    .plan-tab:hover { color: var(--text); }
+    .plan-tab.active { color: var(--teal-dark); border-bottom-color: var(--teal-dark); }
+    .plan-tab-panel { display: none; }
+    .plan-tab-panel.active { display: block; }
+
+    /* Cronograma tabla */
+    .cron-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      table-layout: auto;
+    }
+    .cron-table th {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      background: var(--bg);
+    }
+    .cron-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .cron-table tr:last-child td { border-bottom: none; }
+    .cron-table tr:hover td { background: #F8FEFF; }
+.cron-table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text);
+  line-height: 1.5;
+  white-space: normal;
+}
+    .cron-cell-num { font-weight: 700; color: var(--navy); font-size: 14px; }
+    .cron-cell-topic { font-weight: 600; font-size: 13px; color: var(--text); }
+    .cron-cell-obj { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+    .cron-pill {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .cron-pill-gold   { background: var(--gold-light); color: var(--gold-dark); }
+    .cron-pill-teal   { background: var(--teal-light); color: var(--teal-dark); }
+    .cron-pill-navy   { background: var(--blue-light); color: #185FA5; }
+    .cron-pill-coral  { background: var(--coral-light); color: var(--coral-dark); }
+
+    /* Navegación de clases */
+    .clase-nav {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .clase-btn {
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+      color: var(--muted);
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .clase-btn:hover { border-color: var(--teal); color: var(--teal-dark); }
+    .clase-btn.active {
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      border-color: var(--teal-mid);
+    }
+    .clase-panel { display: none; }
+    .clase-panel.active { display: block; }
+
+    /* Encabezado de clase */
+    .clase-header {
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .clase-header-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: #9FE1CB;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin-bottom: 6px;
+    }
+    .clase-header h3 {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      line-height: 1.35;
+    }
+    .clase-header-meta {
+      color: #9FE1CB;
+      font-size: 12px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Meta grid */
+    .clase-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 500px) { .clase-meta-grid { grid-template-columns: 1fr; } }
+    .clase-meta-card {
+      background: var(--bg);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+    }
+    .clase-meta-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .clase-meta-val { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+    /* Momentos acordeón */
+    .momento {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+    .momento-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.12s;
+    }
+    .momento-head:hover { background: #F8FEFF; }
+    .momento-icon {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .momento-head-text { flex: 1; }
+    .momento-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .momento-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
+    .momento-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .momento-chevron {
+      font-size: 11px;
+      color: var(--muted);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .momento-chevron.open { transform: rotate(180deg); }
+    .momento-body {
+      display: none;
+      padding: 0 1rem 0.9rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .momento-body.open { display: block; }
+
+    /* Actividades dentro de momentos */
+    .act-group { margin-top: 0.8rem; }
+    .act-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 5px;
+    }
+    .act-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.65rem 0.9rem;
+      margin-bottom: 6px;
+    }
+    .act-block p {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.65;
+      margin-bottom: 3px;
+    }
+    .act-block p:last-child { margin-bottom: 0; }
+    .act-block strong { font-weight: 700; color: var(--navy); }
+    .act-block em { color: var(--muted); font-style: normal; font-size: 12px; }
+
+    .note-box {
+      border-radius: var(--radius-md);
+      padding: 0.65rem 0.9rem;
+      font-size: 12px;
+      line-height: 1.6;
+      margin-top: 0.75rem;
+    }
+    .note-teal { background: var(--teal-light); color: var(--teal-dark); }
+    .note-gold { background: var(--gold-light);  color: var(--gold-dark); }
+
     /* ── Footer ── */
     .footer-bar {
       background: var(--navy);
@@ -399,6 +658,10 @@
     <button class="nav-btn" onclick="showSection('evaluacion', this)">
       <span class="nav-icon">✅</span>
       <span class="nav-label">Evaluación</span>
+    </button>
+    <button class="nav-btn" onclick="showSection('planificaciones', this)">
+      <span class="nav-icon">📝</span>
+      <span class="nav-label">Planificaciones</span>
     </button>
   </nav>
 
@@ -848,6 +1111,547 @@
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════════
+       ── PLANIFICACIONES ──
+  ══════════════════════════════════════════ -->
+  <div id="sec-planificaciones" class="section">
+    <div class="section-title">📝 Planificaciones de clase · Semanas 2–3 · Polinomios</div>
+
+    <!-- Pestañas: Cronograma / Clases -->
+    <div class="plan-tabs">
+      <button class="plan-tab active" onclick="switchPlanTab('cron', this)">Cronograma de 8 clases</button>
+      <button class="plan-tab" onclick="switchPlanTab('clases', this)">Planificaciones (clases 1–4)</button>
+    </div>
+
+    <!-- ── Cronograma ── -->
+    <div id="ptab-cron" class="plan-tab-panel active">
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <table class="cron-table">
+          <thead>
+            <tr>
+              <th>Clase</th>
+              <th>Título y subtemas</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cron-cell-num">1</td>
+              <td>
+                <div class="cron-cell-topic">Propiedad distributiva y factorización como proceso inverso</div>
+                <div class="cron-cell-obj">Activación de saberes · distributiva · factor común numérico y literal</div>
+              </td>
+              <td><span class="cron-pill cron-pill-gold">Nueva</span></td>
+            </tr>
+            <tr>
+              <td class="cron-cell-num">2</td>
+              <td>
+                <div class="cron-cell-topic">Factor común y factorización por agrupación de términos</div>
+                <div class="cron-cell-obj">Factor común polinómico · agrupación en pares · binomio factor común</div>
+              </td>
+              <td><span class="cron-pill cron-pill-teal">Desarrollo</span></td>
+            </tr>
+            <tr>
+              <td class="cron-cell-num">3</td>
+              <td>
+                <div class="cron-cell-topic">Productos notables: cuadrado de binomio</div>
+                <div class="cron-cell-obj">(a+b)² · (a−b)² · trinomio cuadrado perfecto y su factorización</div>
+              </td>
+              <td><span class="cron-pill cron-pill-teal">Desarrollo</span></td>
+            </tr>
+            <tr>
+              <td class="cron-cell-num">4</td>
+              <td>
+                <div class="cron-cell-topic">Productos notables: suma por diferencia</div>
+                <div class="cron-cell-obj">(a+b)(a−b) = a²−b² · reconocimiento y factorización · contraste con clase 3</div>
+              </td>
+              <td><span class="cron-pill cron-pill-teal">Desarrollo</span></td>
+            </tr>
+            <tr>
+              <td class="cron-cell-num">5</td>
+              <td>
+                <div class="cron-cell-topic">Estrategias de factorización: trinomio cuadrado perfecto</div>
+                <div class="cron-cell-obj">Reconocimiento · reversión del cuadrado de binomio · ejercitación sistemática</div>
+              </td>
+              <td><span class="cron-pill cron-pill-teal">Desarrollo</span></td>
+            </tr>
+            <tr>
+              <td class="cron-cell-num">6</td>
+              <td>
+                <div class="cron-cell-topic">Estrategias de factorización: diferencia de cuadrados y mixtas</div>
+                <div class="cron-cell-obj">a²−b² · combinación de técnicas · simplificación de fracciones algebraicas</div>
+              </td>
+              <td><span class="cron-pill cron-pill-teal">Desarrollo</span></td>
+            </tr>
+            <tr>
+              <td class="cron-cell-num">7</td>
+              <td>
+                <div class="cron-cell-topic">Modelización con polinomios</div>
+                <div class="cron-cell-obj">Situaciones de área y perímetro · problemas contextualizados · trabajo en grupos</div>
+              </td>
+              <td><span class="cron-pill cron-pill-navy">Aplicación</span></td>
+            </tr>
+            <tr>
+              <td class="cron-cell-num">8</td>
+              <td>
+                <div class="cron-cell-topic">Integración y cierre del bloque de polinomios</div>
+                <div class="cron-cell-obj">Revisión de estrategias · autoevaluación · anticipo de ecuaciones cuadráticas</div>
+              </td>
+              <td><span class="cron-pill cron-pill-coral">Cierre</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── Planificaciones ── -->
+    <div id="ptab-clases" class="plan-tab-panel">
+
+      <div class="clase-nav">
+        <button class="clase-btn active" onclick="switchClase('c1', this)">Clase 1</button>
+        <button class="clase-btn" onclick="switchClase('c2', this)">Clase 2</button>
+        <button class="clase-btn" onclick="switchClase('c3', this)">Clase 3</button>
+        <button class="clase-btn" onclick="switchClase('c4', this)">Clase 4</button>
+      </div>
+
+      <!-- ─── CLASE 1 ─── -->
+      <div id="cp-c1" class="clase-panel active">
+        <div class="clase-header">
+          <div class="clase-header-tag">Clase 1 · Semana 2 · lunes</div>
+          <h3>Propiedad distributiva y factorización como proceso inverso</h3>
+          <div class="clase-header-meta">
+            <span>45 minutos</span><span>9.° EBI · Matemática</span><span>Prof. Lucas Barboza</span>
+          </div>
+        </div>
+        <div class="clase-meta-grid">
+          <div class="clase-meta-card">
+            <div class="clase-meta-label">Objetivo de la clase</div>
+            <div class="clase-meta-val">Reconocer la distributiva y la factorización por factor común como operaciones inversas; extraer factor común numérico, literal y mixto.</div>
+          </div>
+          <div class="clase-meta-card">
+            <div class="clase-meta-label">Indicadores de evaluación</div>
+            <div class="clase-meta-val">Aplica la distributiva para desarrollar y factorizar; justifica por qué ambas operaciones son equivalentes.</div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--gold-light);">🔎</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Inicio — Activación de saberes</div>
+              <div class="momento-sub">Plenario</div>
+            </div>
+            <span class="momento-badge" style="background:var(--gold-light);color:var(--gold-dark);">10 min</span>
+            <span class="momento-chevron open">▼</span>
+          </div>
+          <div class="momento-body open">
+            <div class="act-group">
+              <div class="act-label">Actividad 1 — ¿Qué recuerdan de la distributiva?</div>
+              <div class="act-block">
+                <p>Escribir en el pizarrón: <strong>3 · (x + 5)</strong></p>
+                <p>Preguntar al grupo: "¿Cómo desarrollarían esta expresión? ¿Qué propiedad están usando?" Anotar respuestas sin corregir todavía.</p>
+                <p>Luego mostrar: <strong>3x + 15</strong> y preguntar: "Si partimos de 3x + 15, ¿pueden volver a la forma anterior? ¿Cómo?"</p>
+                <p><em>Propósito: visibilizar que desarrollo y factorización son el mismo camino recorrido en sentidos opuestos.</em></p>
+              </div>
+            </div>
+            <div class="act-group">
+              <div class="act-label">Actividad 2 — ¿Qué es un factor?</div>
+              <div class="act-block">
+                <p>Preguntar: "¿Qué significa sacar factor común en aritmética?" Ejemplo: 12 + 8 = 4·(3 + 2).</p>
+                <p>Conectar la idea con el trabajo algebraico que viene a continuación.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--teal-light);">⚙️</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Desarrollo — Factor común numérico, literal y mixto</div>
+              <div class="momento-sub">Presentación + trabajo en parejas</div>
+            </div>
+            <span class="momento-badge" style="background:var(--teal-light);color:var(--teal-dark);">25 min</span>
+            <span class="momento-chevron">▼</span>
+          </div>
+          <div class="momento-body">
+            <div class="act-group">
+              <div class="act-label">Actividad 3 — Presentación guiada (pizarrón)</div>
+              <div class="act-block">
+                <p><strong>Procedimiento:</strong> identificar el mayor factor que divida a todos los términos (numérico y/o literal).</p>
+                <p><strong>Ejemplos modelizados:</strong></p>
+                <p>a) 6x² + 9x → factor común: 3x → <strong>3x(2x + 3)</strong></p>
+                <p>b) 4a³ − 8a² + 12a → factor común: 4a → <strong>4a(a² − 2a + 3)</strong></p>
+                <p>c) 5x²y − 10xy² → factor común: 5xy → <strong>5xy(x − 2y)</strong></p>
+                <p><strong>Verificación:</strong> pedir que desarrollen el resultado para comprobar la equivalencia. <em>Enfatizar: "siempre verificamos desenvolviendo".</em></p>
+              </div>
+            </div>
+            <div class="act-group">
+              <div class="act-label">Actividad 4 — Práctica en parejas</div>
+              <div class="act-block">
+                <p>Cada pareja resuelve y luego compara con otra pareja:</p>
+                <p>1. 15x³ − 10x²</p>
+                <p>2. 6a²b + 9ab²</p>
+                <p>3. 8m³ − 12m² + 4m</p>
+                <p>4. x(x + 3) + 2(x + 3) <em>(anticipo de agrupación: ¿cuál es el factor común?)</em></p>
+                <p><em>El ítem 4 prepara la clase 2. No corregir en profundidad; circular y registrar estrategias que emergen.</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--blue-light);">✅</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Cierre — Puesta en común y síntesis</div>
+              <div class="momento-sub">Plenario</div>
+            </div>
+            <span class="momento-badge" style="background:var(--blue-light);color:#185FA5;">10 min</span>
+            <span class="momento-chevron">▼</span>
+          </div>
+          <div class="momento-body">
+            <div class="act-group">
+              <div class="act-label">Actividad 5 — Corrección y generalización</div>
+              <div class="act-block">
+                <p>Corregir ítems 1–3 en plenario; pasar un/a estudiante al pizarrón por ejercicio.</p>
+                <p>Preguntar sobre el ítem 4: "¿Qué observan? ¿Cómo se diferencia de los anteriores?"</p>
+                <p>Síntesis: factor común = mayor expresión que divide a todos los términos. Verificación siempre por desarrollo.</p>
+                <p><strong>Anticipo:</strong> "La próxima clase vamos a ver qué pasa cuando no hay un solo factor común para todo el polinomio, pero sí para grupos de términos."</p>
+              </div>
+            </div>
+            <div class="note-box note-teal">Para llevar: ¿Pueden inventar un polinomio de 3 términos cuyo factor común sea 2x²? Escríbanlo y tráiganlo resuelto.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── CLASE 2 ─── -->
+      <div id="cp-c2" class="clase-panel">
+        <div class="clase-header">
+          <div class="clase-header-tag">Clase 2 · Semana 2 · miércoles</div>
+          <h3>Factor común y factorización por agrupación de términos</h3>
+          <div class="clase-header-meta">
+            <span>45 minutos</span><span>9.° EBI · Matemática</span><span>Prof. Lucas Barboza</span>
+          </div>
+        </div>
+        <div class="clase-meta-grid">
+          <div class="clase-meta-card">
+            <div class="clase-meta-label">Objetivo de la clase</div>
+            <div class="clase-meta-val">Aplicar la factorización por agrupación de términos en pares para polinomios de 4 (o más) términos sin factor común global.</div>
+          </div>
+          <div class="clase-meta-card">
+            <div class="clase-meta-label">Indicadores de evaluación</div>
+            <div class="clase-meta-val">Agrupa términos adecuadamente, extrae factor común de cada par y reconoce el factor binomial común resultante.</div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--gold-light);">🔎</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Inicio — Recuperación y puente desde clase 1</div>
+              <div class="momento-sub">Plenario</div>
+            </div>
+            <span class="momento-badge" style="background:var(--gold-light);color:var(--gold-dark);">8 min</span>
+            <span class="momento-chevron open">▼</span>
+          </div>
+          <div class="momento-body open">
+            <div class="act-group">
+              <div class="act-label">Actividad 1 — Revisión de tarea y retoma del ítem 4</div>
+              <div class="act-block">
+                <p>Revisar brevemente la tarea (polinomio inventado). Seleccionar 2–3 ejemplos de estudiantes y corregirlos en el pizarrón.</p>
+                <p>Retomar el ítem 4 de la clase anterior: <strong>x(x + 3) + 2(x + 3)</strong>. Preguntar: "¿Encontraron el factor común?" Escuchar respuestas antes de escribir la solución.</p>
+                <p>Conducir a la observación: el binomio <strong>(x + 3)</strong> aparece en ambos grupos → es el factor común → <strong>(x + 3)(x + 2)</strong>.</p>
+                <p><em>Introduce la idea de agrupación sin darle el nombre todavía.</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--teal-light);">⚙️</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Desarrollo — Factorización por agrupación</div>
+              <div class="momento-sub">Presentación + grupos de 3</div>
+            </div>
+            <span class="momento-badge" style="background:var(--teal-light);color:var(--teal-dark);">25 min</span>
+            <span class="momento-chevron">▼</span>
+          </div>
+          <div class="momento-body">
+            <div class="act-group">
+              <div class="act-label">Actividad 2 — Presentación del método (pizarrón)</div>
+              <div class="act-block">
+                <p><strong>Procedimiento en 3 pasos:</strong> ① Agrupar en dos pares. ② Extraer factor común de cada par. ③ Identificar el binomio factor común y factorizar.</p>
+                <p><strong>Ejemplo 1:</strong> ax + ay + bx + by → a(x+y) + b(x+y) → <strong>(x+y)(a+b)</strong></p>
+                <p><strong>Ejemplo 2:</strong> 2x³ + 4x² + 3x + 6 → 2x²(x+2) + 3(x+2) → <strong>(x+2)(2x²+3)</strong></p>
+                <p><strong>Ejemplo 3 (reordenamiento):</strong> 3ab − 6a + b² − 2b → reagrupar: (3ab+b²) + (−6a−2b) → b(3a+b) − 2(3a+b) → <strong>(3a+b)(b−2)</strong></p>
+                <p><em>Destacar: a veces hay que reordenar los términos para encontrar la agrupación adecuada.</em></p>
+              </div>
+            </div>
+            <div class="act-group">
+              <div class="act-label">Actividad 3 — Trabajo en grupos de 3</div>
+              <div class="act-block">
+                <p>Cada grupo resuelve todos los ítems. Luego comparte una solución diferente en el pizarrón.</p>
+                <p>1. x² + 3x + 2x + 6</p>
+                <p>2. am − an + bm − bn</p>
+                <p>3. 4x³ − 8x² + 5x − 10</p>
+                <p>4. xy + y² − xz − yz</p>
+                <p>5 (desafío). x³ − x² + x − 1 <em>(pista: agrupar de a dos)</em></p>
+                <p><em>Circular y registrar errores frecuentes, especialmente olvidar el signo al extraer factor negativo.</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--blue-light);">✅</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Cierre — Análisis del error y síntesis</div>
+              <div class="momento-sub">Plenario</div>
+            </div>
+            <span class="momento-badge" style="background:var(--blue-light);color:#185FA5;">12 min</span>
+            <span class="momento-chevron">▼</span>
+          </div>
+          <div class="momento-body">
+            <div class="act-group">
+              <div class="act-label">Actividad 4 — Corrección y análisis</div>
+              <div class="act-block">
+                <p>Pasar representantes de cada grupo al pizarrón. Focalizar la discusión en los ítems 4 y 5.</p>
+                <p>Presentar deliberadamente un error típico: olvidar el signo negativo al factorizar. Preguntar: "¿Qué falló acá? ¿Cómo lo verificamos?"</p>
+                <p>Síntesis colectiva: <strong>¿cuándo usamos agrupación?</strong> → cuando no hay factor común global pero sí parcial.</p>
+              </div>
+            </div>
+            <div class="note-box note-gold">Próxima clase: vamos a ver qué pasa cuando multiplicamos dos binomios iguales. Pensar: ¿cuánto es (x + 3)²?</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── CLASE 3 ─── -->
+      <div id="cp-c3" class="clase-panel">
+        <div class="clase-header">
+          <div class="clase-header-tag">Clase 3 · Semana 2 · viernes</div>
+          <h3>Productos notables: cuadrado de binomio</h3>
+          <div class="clase-header-meta">
+            <span>45 minutos</span><span>9.° EBI · Matemática</span><span>Prof. Lucas Barboza</span>
+          </div>
+        </div>
+        <div class="clase-meta-grid">
+          <div class="clase-meta-card">
+            <div class="clase-meta-label">Objetivo de la clase</div>
+            <div class="clase-meta-val">Deducir y aplicar las identidades (a+b)² y (a−b)²; reconocer un trinomio cuadrado perfecto y factorizarlo.</div>
+          </div>
+          <div class="clase-meta-card">
+            <div class="clase-meta-label">Indicadores de evaluación</div>
+            <div class="clase-meta-val">Desarrolla cuadrados de binomio con notación correcta; identifica y factoriza un trinomio cuadrado perfecto.</div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--gold-light);">🔎</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Inicio — Exploración geométrica</div>
+              <div class="momento-sub">Plenario</div>
+            </div>
+            <span class="momento-badge" style="background:var(--gold-light);color:var(--gold-dark);">10 min</span>
+            <span class="momento-chevron open">▼</span>
+          </div>
+          <div class="momento-body open">
+            <div class="act-group">
+              <div class="act-label">Actividad 1 — El cuadrado de lado (a + b)</div>
+              <div class="act-block">
+                <p>Dibujar en el pizarrón un cuadrado de lado <strong>(a + b)</strong>, subdividido en 4 regiones: cuadrado de lado a, cuadrado de lado b, y dos rectángulos de lados a y b.</p>
+                <p>Preguntar: "¿Cuál es el área total?" Recoger respuestas y guiar a: a² + ab + ab + b² = <strong>a² + 2ab + b²</strong>.</p>
+                <p>Preguntar: "¿Y si el lado fuera (a − b)? ¿Qué cambia?" → llevar a (a−b)² = a² − 2ab + b².</p>
+                <p><em>El apoyo visual geométrico ancla la identidad antes de formalizarla algebraicamente.</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--teal-light);">⚙️</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Desarrollo — Identidades y su inverso</div>
+              <div class="momento-sub">Presentación + práctica individual</div>
+            </div>
+            <span class="momento-badge" style="background:var(--teal-light);color:var(--teal-dark);">25 min</span>
+            <span class="momento-chevron">▼</span>
+          </div>
+          <div class="momento-body">
+            <div class="act-group">
+              <div class="act-label">Actividad 2 — Formalización y ejemplos</div>
+              <div class="act-block">
+                <p><strong>Identidades:</strong></p>
+                <p>(a + b)² = a² + 2ab + b²</p>
+                <p>(a − b)² = a² − 2ab + b²</p>
+                <p>Verificar multiplicando directamente: (a+b)(a+b) mediante distributiva doble.</p>
+                <p><strong>Ejemplos:</strong> (x+5)² = x²+10x+25 · (2x−3)² = 4x²−12x+9 · (3a+4b)² = 9a²+24ab+16b²</p>
+                <p><em>Insistir: el término central es el DOBLE del producto de los dos términos del binomio.</em></p>
+              </div>
+            </div>
+            <div class="act-group">
+              <div class="act-label">Actividad 3 — Error frecuente a debatir</div>
+              <div class="act-block">
+                <p>Presentar: "Marcos dice que (x + 4)² = x² + 16. ¿Tiene razón? ¿Qué olvidó?"</p>
+                <p>Discusión en pares → corrección plenaria. Registrar: <strong>(a + b)² ≠ a² + b²</strong>.</p>
+              </div>
+            </div>
+            <div class="act-group">
+              <div class="act-label">Actividad 4 — Factorización de trinomio cuadrado perfecto</div>
+              <div class="act-block">
+                <p><strong>Criterio de reconocimiento:</strong> el primero y el último término son cuadrados perfectos, y el término central es el doble del producto de sus raíces.</p>
+                <p><strong>Ejemplos guiados:</strong> x²+6x+9 → <strong>(x+3)²</strong> · 4x²−20x+25 → <strong>(2x−5)²</strong> · 9a²+12ab+4b² → <strong>(3a+2b)²</strong></p>
+                <p><strong>Práctica individual:</strong> factorizar x²−8x+16 · 25x²+10x+1 · 16a²−24ab+9b²</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--blue-light);">✅</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Cierre — Verificación y anticipación</div>
+              <div class="momento-sub">Plenario</div>
+            </div>
+            <span class="momento-badge" style="background:var(--blue-light);color:#185FA5;">10 min</span>
+            <span class="momento-chevron">▼</span>
+          </div>
+          <div class="momento-body">
+            <div class="act-group">
+              <div class="act-label">Actividad 5 — Corrección y reflexión</div>
+              <div class="act-block">
+                <p>Corregir los tres ejercicios de práctica individual. Verificación: "desarrollen el resultado y comparen con el trinomio original."</p>
+                <p>Pregunta de cierre: "¿Qué ocurre si multiplico (x + 3) por (x − 3)? ¿Alguien quiere intentarlo?" (anticipo de la próxima clase).</p>
+              </div>
+            </div>
+            <div class="note-box note-teal">Para explorar: calcular (10+1)² usando la identidad. ¿Coincide con 11²? ¿Pueden calcular 99² de la misma manera?</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── CLASE 4 ─── -->
+      <div id="cp-c4" class="clase-panel">
+        <div class="clase-header">
+          <div class="clase-header-tag">Clase 4 · Semana 3 · lunes</div>
+          <h3>Productos notables: suma por diferencia</h3>
+          <div class="clase-header-meta">
+            <span>45 minutos</span><span>9.° EBI · Matemática</span><span>Prof. Lucas Barboza</span>
+          </div>
+        </div>
+        <div class="clase-meta-grid">
+          <div class="clase-meta-card">
+            <div class="clase-meta-label">Objetivo de la clase</div>
+            <div class="clase-meta-val">Deducir y aplicar la identidad (a+b)(a−b) = a²−b²; reconocer una diferencia de cuadrados y factorizarla.</div>
+          </div>
+          <div class="clase-meta-card">
+            <div class="clase-meta-label">Indicadores de evaluación</div>
+            <div class="clase-meta-val">Aplica la identidad correctamente; identifica diferencia de cuadrados y la factoriza; contrasta con el cuadrado de binomio.</div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--gold-light);">🔎</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Inicio — Retoma y conjetura</div>
+              <div class="momento-sub">Plenario</div>
+            </div>
+            <span class="momento-badge" style="background:var(--gold-light);color:var(--gold-dark);">8 min</span>
+            <span class="momento-chevron open">▼</span>
+          </div>
+          <div class="momento-body open">
+            <div class="act-group">
+              <div class="act-label">Actividad 1 — Cálculo mental como motivación</div>
+              <div class="act-block">
+                <p>Preguntar: "¿Cuánto es 19 × 21 sin calculadora?" Dar un minuto para que intenten.</p>
+                <p>Escuchar estrategias. Luego mostrar: 19 × 21 = (20−1)(20+1).</p>
+                <p>Expandir con distributiva: (20−1)(20+1) = 400 + 20 − 20 − 1 = <strong>399</strong>.</p>
+                <p>Preguntar: "¿Qué observan? ¿Qué pasó con los términos del medio?" → desaparecen.</p>
+                <p><em>Este gancho aritmético anticipa la identidad de forma natural.</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--teal-light);">⚙️</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Desarrollo — Identidad y factorización</div>
+              <div class="momento-sub">Presentación + práctica individual</div>
+            </div>
+            <span class="momento-badge" style="background:var(--teal-light);color:var(--teal-dark);">27 min</span>
+            <span class="momento-chevron">▼</span>
+          </div>
+          <div class="momento-body">
+            <div class="act-group">
+              <div class="act-label">Actividad 2 — Deducción algebraica general</div>
+              <div class="act-block">
+                <p>Generalizar: <strong>(a+b)(a−b)</strong></p>
+                <p>Desarrollar paso a paso: a·a − a·b + b·a − b·b = a² − ab + ab − b² = <strong>a² − b²</strong></p>
+                <p>Los términos −ab y +ab se cancelan. Resultado: diferencia de cuadrados.</p>
+                <p><strong>Ejemplos:</strong> (x+7)(x−7) = x²−49 · (2x+5)(2x−5) = 4x²−25 · (3a+4b)(3a−4b) = 9a²−16b²</p>
+              </div>
+            </div>
+            <div class="act-group">
+              <div class="act-label">Actividad 3 — Factorización: el camino inverso</div>
+              <div class="act-block">
+                <p><strong>Criterio:</strong> a²−b² → (a+b)(a−b). Ambos términos deben ser cuadrados perfectos.</p>
+                <p><strong>Ejemplos guiados:</strong></p>
+                <p>a) 9x² − 1 → <strong>(3x+1)(3x−1)</strong></p>
+                <p>b) 25a² − 49b² → <strong>(5a+7b)(5a−7b)</strong></p>
+                <p>c) x⁴ − 16 → (x²+4)(x²−4) → <strong>(x²+4)(x+2)(x−2)</strong> <em>(factorización completa)</em></p>
+              </div>
+            </div>
+            <div class="act-group">
+              <div class="act-label">Actividad 4 — Práctica individual (consolidación)</div>
+              <div class="act-block">
+                <p><strong>Desarrollar:</strong> (4x−9)(4x+9) · (a²+b)(a²−b)</p>
+                <p><strong>Factorizar:</strong> 36x²−25 · 4a²−81b² · x⁴−y⁴</p>
+                <p><strong>Reflexión:</strong> "¿Es x²−9 una diferencia de cuadrados o un trinomio cuadrado perfecto? ¿Cómo los distinguen?"</p>
+                <p><em>Esta pregunta apunta al error de confusión frecuente entre ambas identidades.</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="momento">
+          <div class="momento-head" onclick="toggleMomento(this)">
+            <div class="momento-icon" style="background: var(--blue-light);">✅</div>
+            <div class="momento-head-text">
+              <div class="momento-title">Cierre — Contraste de identidades y síntesis</div>
+              <div class="momento-sub">Plenario</div>
+            </div>
+            <span class="momento-badge" style="background:var(--blue-light);color:#185FA5;">10 min</span>
+            <span class="momento-chevron">▼</span>
+          </div>
+          <div class="momento-body">
+            <div class="act-group">
+              <div class="act-label">Actividad 5 — Tabla comparativa y corrección</div>
+              <div class="act-block">
+                <p>Construir colectivamente en el pizarrón la tabla de las tres identidades vistas:</p>
+                <p><strong>(a+b)²</strong> = a² + 2ab + b² → trinomio, término central positivo</p>
+                <p><strong>(a−b)²</strong> = a² − 2ab + b² → trinomio, término central negativo</p>
+                <p><strong>(a+b)(a−b)</strong> = a² − b² → binomio, sin término central</p>
+                <p>Corregir práctica individual; priorizar ítems de factorización y pregunta de reflexión.</p>
+              </div>
+            </div>
+            <div class="note-box note-teal">Próxima clase: ¿cómo usamos todo esto para factorizar un trinomio que no sea cuadrado perfecto? Pensar en qué pasa con x² + 5x + 6.</div>
+          </div>
+        </div>
+      </div>
+      <!-- fin clase-panels -->
+    </div>
+    <!-- fin ptab-clases -->
+
+  </div>
+  <!-- fin sec-planificaciones -->
+
   <div class="footer-bar">
     <div>
       <div class="footer-name">Prof. Lucas Barboza</div>
@@ -876,6 +1680,24 @@
     const chevron = head.querySelector('.chevron');
     ind.classList.toggle('open');
     chevron.classList.toggle('open');
+  }
+  function switchPlanTab(id, btn) {
+    document.querySelectorAll('.plan-tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.plan-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('ptab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+  function switchClase(id, btn) {
+    document.querySelectorAll('.clase-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.clase-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('cp-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+  function toggleMomento(head) {
+    const body = head.nextElementSibling;
+    const ch = head.querySelector('.momento-chevron');
+    body.classList.toggle('open');
+    ch.classList.toggle('open');
   }
 </script>
 </body>
